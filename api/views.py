@@ -22,7 +22,7 @@ def apiOverview(request):
 
 @api_view(['GET'])
 def itemList(request):
-    items = Item.objects.all()
+    items = Item.objects.all().order_by('-search_count')
     serializer = ItemSerializer(items, many=True)
 
     return Response(serializer.data)
