@@ -1,0 +1,48 @@
+<!-- FILEPATH: /C:/Users/Raahim/Documents/code/sastaticket/rest/crud/api/templates/api/index.html -->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>API Overview</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container">
+        <h1 class="mt-5">API Overview</h1>
+        <ul class="list-group mt-4">
+            <li class="list-group-item"><a href="/api/list/" class="btn btn-primary btn-block">Item List</a></li>
+            <li class="list-group-item">
+                <form onsubmit="submitForm(event, '/api/search/')">
+                    <div class="input-group">
+                        <input type="text" id="name" class="form-control" placeholder="Enter name">
+                        <div class="input-group-append">
+                            <button type="submit" class="btn btn-primary">Item Search</button>
+                        </div>
+                    </div>
+                </form>
+            </li>
+            <li class="list-group-item"><a href="/api/add/" class="btn btn-success btn-block">Add Item</a></li>
+            <li class="list-group-item">
+                <form onsubmit="submitForm(event, '/api/delete-exact-match/')">
+                    <div class="input-group">
+                        <input type="text" id="name" class="form-control" placeholder="Enter name">
+                        <div class="input-group-append">
+                            <button type="submit" class="btn btn-danger">Delete Exact Match Item</button>
+                        </div>
+                    </div>
+                </form>
+            </li>
+            <li class="list-group-item">
+                <form onsubmit="submitForm(event, '/api/delete-partial-match/')">
+                    <div class="input-group">
+                        <input type="text" id="name" class="form-control" placeholder="Enter name">
+                        <div class="input-group-append">
+                            <button type="submit" class="btn btn-danger">Delete Partial Match Item</button>
+                        </div>
+                    </div>
+                </form>
+            </li>
+        </ul>
+    </div>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
