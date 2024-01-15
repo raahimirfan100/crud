@@ -9,5 +9,5 @@ urlpatterns = [
     path('delete-exact-match/<str:name>/', deleteExactMatchItem, name="item-delete-exact-match"),
     path('delete-partial-match/<str:name>/', deletePartialMatchItem, name="item-delete-partial-match"),
     
-    path('index/', index, name='index'),
+    #path('index/', index, name='index'),
 ]
