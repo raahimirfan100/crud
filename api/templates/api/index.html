@@ -44,5 +44,12 @@
         </ul>
     </div>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script>
+        function submitForm(event, endpoint) {
+            event.preventDefault();
+            var name = document.getElementById("name").value;
+            window.location.href = endpoint + name;
+        }
+    </script>
 </body>
 </html>
