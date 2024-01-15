@@ -47,7 +47,7 @@
     <script>
         function submitForm(event, endpoint) {
             event.preventDefault();
-            var name = document.getElementById("name").value;
+            var name = event.target.querySelector("input").value;
             window.location.href = endpoint + name;
         }
     </script>
