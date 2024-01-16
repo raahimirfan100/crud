@@ -14,16 +14,6 @@ paths:
       responses:
         '200':
           description: No response body
-  /api/:
-    get:
-      operationId: root_retrieve_2
-      security:
-      - cookieAuth: []
-      - basicAuth: []
-      - {}
-      responses:
-        '200':
-          description: No response body
   /api/add/:
     post:
       operationId: add_create
