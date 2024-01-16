@@ -25,7 +25,15 @@ SECRET_KEY = 'django-insecure-6##u4f=ty97tzw-@k%groh(az^xj2&l*e$%au%s1zgm_lh9(c4
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    '37acde65-9c6a-4c50-b850-09be9a4c9b70-00-2al6sdznzfzg.pike.replit.dev',
+    '127.0.0.1'
+]
+
+CSRF_TRUSTED_ORIGINS = [
+    'https://37acde65-9c6a-4c50-b850-09be9a4c9b70-00-2al6sdznzfzg.pike.replit.dev',
+    'https://*.127.0.0.1'
+]
 
 
 # Application definition
@@ -40,6 +48,8 @@ INSTALLED_APPS = [
     
     'api.apps.ApiConfig',
     'rest_framework',
+    'drf_spectacular',
+    'drf_spectacular_sidecar',
 ]
 
 MIDDLEWARE = [
@@ -124,3 +134,32 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+REST_FRAMEWORK = {
+    'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
+} # new
+
+SPECTACULAR_SETTINGS = {
+    'TITLE': 'CRUD',
+    'DESCRIPTION': 'CRUD API',
+    'VERSION': '1.0.0',
+    'SCHEMA_PATH_PREFIX': '/api',
+    'SERVE_INCLUDE_SCHEMA': False,
+    'SWAGGER_UI_DIST': 'SIDECAR',
+    'SWAGGER_UI_FAVICON_HREF': 'swagger',
+
+    'COMPONENT_SPLIT_REQUEST': True,
+
+    }
+
+# DEFAULT_AUTHENTICATION_CLASSES: [
+#     # 'rest_framework.authentication.SessionAuthentication',
+#     'rest_framework.authentication.BasicAuthentication',
+# ]   
+
+# Use the SpectacularSwaggerView for the Swagger UI
+SWAGGER_SETTINGS = {
+    'DEFAULT_GENERATOR_CLASS': 'drf_spectacular.generators.SchemaGenerator',
+    'DEFAULT_AUTO_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
+    # Other settings...
+}
