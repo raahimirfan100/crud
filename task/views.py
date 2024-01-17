@@ -17,16 +17,6 @@ class ItemViewSet(viewsets.ViewSet):
     queryset = Item.objects.all()
     serializer_class = ItemSerializer
 
-    @action(detail=False, methods=['GET'])
-    def apiOverview(self, request):
-        api_urls = {
-            "Item List": "/list/",
-            "Item Search": "/search/<str:name>/",
-            "Add Item": "/add/",
-            "Delete Item by exact match": "/delete-exact-match/<str:name>/",
-            "Delete Item by partial match": "/delete-partial-match/<str:name>/",
-        }
-        return Response(api_urls)
 
     @action(detail=False, methods=['GET'])
     def itemList(self, request):
@@ -41,10 +31,11 @@ class ItemViewSet(viewsets.ViewSet):
     @action(detail=True, methods=['GET'])
     def itemSearch(self, request, name=None):
         try:
-            item = self.get_object()
-            item.search_count += 1
-            item.save()
-            serializer = ItemSerializer(item)
+            items = Item.objects.filter(name=name)
+            for item in items:
+                item.search_count += 1
+                item.save()
+            serializer = ItemSerializer(items, many=True)
             return Response(serializer.data)
         except Http404 as e:
             logger.error(f"Item {name} not found: {e}")
@@ -69,17 +60,14 @@ class ItemViewSet(viewsets.ViewSet):
         return Response("Items Deleted")
 
     def get_object(self):
-        queryset = Item.objects.all()
         try:
-            obj = queryset.get(name=self.kwargs['name'])
+            obj = Item.objects.filter(name=self.kwargs['name'])
             self.check_object_permissions(self.request, obj)
         except Item.DoesNotExist:
             raise Http404("No item matches the given query.")
         return obj
 
-    @action(detail=False, methods=['GET'])
-    def index(self, request):
-        return render(request, 'api/index.html')
+
 
 
 logging.basicConfig(level=logging.DEBUG)
