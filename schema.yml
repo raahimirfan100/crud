@@ -4,31 +4,37 @@ info:
   version: 1.0.0
   description: CRUD API
 paths:
-  /:
-    get:
-      operationId: root_retrieve
-      security:
-      - cookieAuth: []
-      - basicAuth: []
-      - {}
-      responses:
-        '200':
-          description: No response body
   /api/add/:
     post:
       operationId: add_create
       tags:
       - add
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ItemRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/ItemRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/ItemRequest'
+        required: true
       security:
       - cookieAuth: []
       - basicAuth: []
       - {}
       responses:
         '200':
-          description: No response body
-  /api/delete-exact-match/{name}/:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Item'
+          description: ''
+  /api/delete/{name}/:
     delete:
-      operationId: delete_exact_match_destroy
+      operationId: delete_destroy
       parameters:
       - in: path
         name: name
@@ -36,25 +42,7 @@ paths:
           type: string
         required: true
       tags:
-      - delete-exact-match
-      security:
-      - cookieAuth: []
-      - basicAuth: []
-      - {}
-      responses:
-        '204':
-          description: No response body
-  /api/delete-partial-match/{name}/:
-    delete:
-      operationId: delete_partial_match_destroy
-      parameters:
-      - in: path
-        name: name
-        schema:
-          type: string
-        required: true
-      tags:
-      - delete-partial-match
+      - delete
       security:
       - cookieAuth: []
       - basicAuth: []
@@ -73,7 +61,11 @@ paths:
       - {}
       responses:
         '200':
-          description: No response body
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Item'
+          description: ''
   /api/search/{name}/:
     get:
       operationId: search_retrieve
@@ -91,8 +83,30 @@ paths:
       - {}
       responses:
         '200':
-          description: No response body
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Item'
+          description: ''
 components:
+  schemas:
+    Item:
+      type: object
+      properties:
+        name:
+          type: string
+          maxLength: 100
+      required:
+      - name
+    ItemRequest:
+      type: object
+      properties:
+        name:
+          type: string
+          minLength: 1
+          maxLength: 100
+      required:
+      - name
   securitySchemes:
     basicAuth:
       type: http
