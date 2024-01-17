@@ -5,6 +5,8 @@ from rest_framework.response import Response
 from .serializers import ItemSerializer
 from .models import Item
 from django.http import Http404
+from django.core.exceptions import ObjectDoesNotExist
+from rest_framework.exceptions import ValidationError
 
 import logging
 logger = logging.getLogger(__name__)
@@ -28,26 +30,37 @@ class ItemViewSet(viewsets.ViewSet):
 
     @action(detail=False, methods=['GET'])
     def itemList(self, request):
-        items = Item.objects.all().order_by('-search_count')
-        serializer = ItemSerializer(items, many=True)
-        return Response(serializer.data)
+        try:
+            items = Item.objects.all().order_by('-search_count')
+            serializer = ItemSerializer(items, many=True)
+            return Response(serializer.data)
+        except ObjectDoesNotExist:
+            logger.error("Failed to retrieve items")
+            return Response({"error": "Failed to retrieve items"}, status=500)
 
     @action(detail=True, methods=['GET'])
     def itemSearch(self, request, name=None):
-        item = self.get_object()
-        item.search_count += 1
-        item.save()
-        serializer = ItemSerializer(item)
-        return Response(serializer.data)
+        try:
+            item = self.get_object()
+            item.search_count += 1
+            item.save()
+            serializer = ItemSerializer(item)
+            return Response(serializer.data)
+        except Http404 as e:
+            logger.error(f"Item {name} not found: {e}")
+            return Response({"error": str(e)}, status=404)
 
     @action(detail=False, methods=['POST'])
     def addItem(self, request):
         serializer = ItemSerializer(data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data)
-        print(serializer.errors)
-        return Response(serializer.errors, status=400)
+        try:
+            if serializer.is_valid():
+                serializer.save()
+                return Response(serializer.data)
+        except ValidationError as e:
+            logger.error(f"Invalid data: {e}")
+            print(serializer.errors)
+            return Response({"error": str(e)}, status=400)
 
     @action(detail=False, methods=['DELETE'])
     def deleteItem(self, request, name):
