@@ -49,14 +49,8 @@ class ItemViewSet(viewsets.ViewSet):
         print(serializer.errors)
         return Response(serializer.errors, status=400)
 
-    @action(detail=True, methods=['DELETE'])
-    def deleteExactMatchItem(self, request, pk=None):
-        item = self.get_object()
-        item.delete()
-        return Response("Item Deleted")
-
     @action(detail=False, methods=['DELETE'])
-    def deletePartialMatchItem(self, request, name):
+    def deleteItem(self, request, name):
         items = Item.objects.filter(name__contains=name)
         items.delete()
         return Response("Items Deleted")
