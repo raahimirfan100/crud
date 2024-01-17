@@ -31,7 +31,7 @@ ALLOWED_HOSTS = [
 ]
 
 CSRF_TRUSTED_ORIGINS = [
-    'https://37acde65-9c6a-4c50-b850-09be9a4c9b70-00-2al6sdznzfzg.pike.replit.dev',
+    'https://de920950-d519-4849-9a50-9ed1a196949a-00-3bu79qyr1ttg8.sisko.replit.dev',
     'https://*.127.0.0.1'
 ]
 
