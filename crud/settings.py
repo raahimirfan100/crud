@@ -46,7 +46,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     
-    'api.apps.ApiConfig',
+#    'api.apps.ApiConfig',
+    'task.apps.TaskConfig',
     'rest_framework',
     'drf_spectacular',
     'drf_spectacular_sidecar',
