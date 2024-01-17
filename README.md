@@ -16,10 +16,6 @@ This project implements CRUD (Create, Read, Update, Delete) operations for manag
 - `POST /add/`: Adds a new item.
 - `DELETE /delete/{name}/`: Deletes items with names containing the given value.
 
-### Swagger Documentation
-
-You can access the Swagger documentation for this API by visiting the [Swagger UI](/swagger-ui/) endpoint.
-
 ## Demo
 
-You can watch a demo of this project on [Replit]([https://replit.com/](https://de920950-d519-4849-9a50-9ed1a196949a-00-3bu79qyr1ttg8.sisko.replit.dev/)).
+You can watch a demo of this project on [Replit]([https://replit.com/](https://de920950-d519-4849-9a50-9ed1a196949a-00-3bu79qyr1ttg8.sisko.replit.dev/)]).
