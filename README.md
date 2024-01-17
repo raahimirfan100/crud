@@ -7,8 +7,6 @@ This project implements CRUD (Create, Read, Update, Delete) operations for manag
 1. Clone the repository.
 2. Install the required dependencies by running `pip install -r requirements.txt`.
 
-## Usage
-
 ### API Endpoints
 
 - `GET /list/`: Retrieves a list of items sorted by search count.
