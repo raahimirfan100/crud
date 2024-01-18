@@ -46,7 +46,6 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     
-#    'api.apps.ApiConfig',
     'task.apps.TaskConfig',
     'rest_framework',
     'drf_spectacular',
@@ -136,9 +135,9 @@ STATIC_URL = 'static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-REST_FRAMEWORK = {
-    'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
-} # new
+# REST_FRAMEWORK = {
+#     'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
+# } # new
 
 SPECTACULAR_SETTINGS = {
     'TITLE': 'CRUD',
@@ -163,4 +162,12 @@ SWAGGER_SETTINGS = {
     'DEFAULT_GENERATOR_CLASS': 'drf_spectacular.generators.SchemaGenerator',
     'DEFAULT_AUTO_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
     # Other settings...
+}
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.SessionAuthentication',
+        'rest_framework.authentication.TokenAuthentication',
+    ],
+    'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema'
 }
